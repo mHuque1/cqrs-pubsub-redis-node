@@ -1,11 +1,11 @@
 import express from 'express';
-import dataRoutes from './routes/data.routes';
+import datosRoutes from './routes/datos.routes';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use('/data', dataRoutes);
+app.use('/datos', datosRoutes);
 
 app.listen(PORT, () => {
   console.log(`Web Server A running on http://localhost:${PORT}`);
