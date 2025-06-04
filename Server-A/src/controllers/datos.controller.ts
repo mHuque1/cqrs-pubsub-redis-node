@@ -12,4 +12,4 @@ export const crearDato = async (req: Request, res: Response) => {
 export const obtenerDatos = async (_: Request, res: Response) => {
  const datos = await service.obtenerTodos();
   res.json(datos);
-};
+}; //hola
