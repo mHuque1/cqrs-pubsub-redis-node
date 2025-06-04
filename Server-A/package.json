@@ -14,7 +14,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "amqplib": "^0.10.8",
+    "express": "^5.1.0",
+    "mysql2": "^3.14.1",
+    "redis": "^5.5.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.2",
