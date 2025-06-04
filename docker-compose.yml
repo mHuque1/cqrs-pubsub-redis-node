@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  web-serv-a:
+    build: ./web-serv-a
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - redis
+      - queue
+
+  web-serv-b:
+    build: ./web-serv-b
+    ports:
+      - "3001:3000"
+    depends_on:
+      - mongodb
+      - queue
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: appdb
+
+  redis:
+    image: redis
+
+  queue:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"  # management UI
+
+  mongodb:
+    image: mongo
