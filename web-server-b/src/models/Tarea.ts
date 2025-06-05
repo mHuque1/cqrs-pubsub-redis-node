@@ -1,17 +1,32 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
-const tareaSchema = new Schema({
-  id: Number,
-  titulo: String,
-  descripcion: String,
+export interface ITarea extends Document {
+  id: number;
+  titulo: string;
+  descripcion?: string;
+  estado: "pendiente" | "en_progreso" | "completada";
+  proyectoId: number;
+  equipoId: number;
+  fechaCreacion: Date;
+  fechaActualizacion: Date;
+}
+
+const tareaSchema = new Schema<ITarea>({
+  id: { type: Number, required: true, unique: true },
+  titulo: { type: String, required: true },
+  descripcion: { type: String },
   estado: {
     type: String,
     enum: ["pendiente", "en_progreso", "completada"],
+    required: true,
   },
-  proyectoId: Number,
-  equipoId: Number,
-  fechaCreacion: Date,
-  fechaActualizacion: Date,
+  proyectoId: { type: Number, required: true },
+  equipoId: { type: Number, required: true },
+  fechaCreacion: { type: Date, required: true },
+  fechaActualizacion: { type: Date, required: true },
 });
 
-export default model("Tarea", tareaSchema);
+// Crea índice compuesto para búsquedas frecuentes (opcional):
+tareaSchema.index({ proyectoId: 1, equipoId: 1 });
+
+export default model<ITarea>("Tarea", tareaSchema);

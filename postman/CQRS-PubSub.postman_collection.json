@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "49218797-b571-4306-8d02-8d3deb1c898a",
+		"name": "CQRS-PubSub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45628304",
+		"_collection_link": "https://mathiashuque.postman.co/workspace/Mathias-Huque's-Workspace~611d6dbe-7b6d-4a8a-8cf7-12c34d617434/collection/45628304-49218797-b571-4306-8d02-8d3deb1c898a?action=share&source=collection_link&creator=45628304"
+	},
+	"item": [
+		{
+			"name": "Server A",
+			"item": [
+				{
+					"name": "Datos",
+					"item": [
+						{
+							"name": "Crear Datos",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"dato\": \"dooooou\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener Datos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3001/api/datos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"api",
+										"datos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Log In",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"alice@example.com\",\r\n  \"password\": \"Password123!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Tarea",
+					"item": [
+						{
+							"name": "Crear Tarea",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVxdWlwb0lkIjoxLCJpYXQiOjE3NDkxNDM2MTEsImV4cCI6MTc0OTE0NzIxMX0.RgdZWMU05QcPhqbMbcAdlL1LutQFHwoOkNpZSD-KhEI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"titulo\": \"Tarea desde Postman\",\r\n  \"descripcion\": \"Probando Server A + Redis\",\r\n  \"proyectoId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/tareas",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"tareas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar Estado de Tarea",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVxdWlwb0lkIjoxLCJpYXQiOjE3NDkxNDM2MTEsImV4cCI6MTc0OTE0NzIxMX0.RgdZWMU05QcPhqbMbcAdlL1LutQFHwoOkNpZSD-KhEI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"tareaId\": 2,\r\n  \"nuevoEstado\": \"en_progreso\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/tareas",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"tareas"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Server B",
+			"item": [
+				{
+					"name": "Get Tareas de un proyecto",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVxdWlwb0lkIjoxLCJpYXQiOjE3NDkxNDM2MTEsImV4cCI6MTc0OTE0NzIxMX0.RgdZWMU05QcPhqbMbcAdlL1LutQFHwoOkNpZSD-KhEI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/api/tareas/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"tareas",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
