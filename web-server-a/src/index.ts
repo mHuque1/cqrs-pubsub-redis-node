@@ -1,18 +1,18 @@
 // web-server-a/src/index.ts
 import dotenv from "dotenv";
 import { connectMySQL, prisma } from "./lib/mysql";
-import "./lib/redis";
 import { connectRabbit } from "./lib/rabbitmq";
 import { createApp } from "./server";
+import "./lib/redis";
 
 dotenv.config();
 
 const PORT = Number(process.env.PORT) || 3000;
 
 async function initializeServices() {
-  await connectMySQL();    // ✅ Connected to MySQL (Prisma)
+  await connectMySQL();
   // Redis auto-connects on import
-  await connectRabbit();   // ✅ Connected to RabbitMQ
+  await connectRabbit();
 }
 
 function startExpressServer() {

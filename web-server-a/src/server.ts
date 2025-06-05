@@ -1,7 +1,7 @@
 // web-server-a/src/server.ts
 import express, { Application, Request, Response, NextFunction } from "express";
+import routes from "./routes/datos.routes";
 import cors from "cors";
-import routes from "./routes/datos.routes"; // this points to src/routes/index.ts
 
 export function createApp(): Application {
   const app = express();

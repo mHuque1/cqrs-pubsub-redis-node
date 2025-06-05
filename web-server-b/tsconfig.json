@@ -1,19 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "outDir": "dist",
-    "rootDir": "src",
-    "strict": true,
+    "target": "es6",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "baseUrl": "src",
-    "paths": {
-      "@controllers/*": ["controllers/*"],
-      "@models/*": ["models/*"],
-      "@services/*": ["services/*"]
-    }
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

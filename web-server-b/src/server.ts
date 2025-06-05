@@ -1,19 +1,28 @@
 // src/server.ts
-import express from "express";
-import { connectMongo } from "./lib/mongo";
-import dataRouter from "./routes/data.routes";
+import express, { Application, Request, Response, NextFunction } from "express";
+import routes from "./routes/data.routes";
+import cors from "cors";
 
-export const startServer = async () => {
-  await connectMongo();
-
+export function createApp() : Application {
   const app = express();
+ 
+  // Middleware
+  app.use(cors());
   app.use(express.json());
 
-  
-  app.use("/datos", dataRouter);
+  // Mount all API routes under /api
+  app.use("/api", routes);
 
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => {
-    console.log(`🌐 Express server running on port ${PORT}`);
+  // Health check
+  app.get("/", (_req: Request, res: Response) => {
+    res.send("API is running.");
   });
+
+  // Error handler
+  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    console.error("Unhandled error:", err);
+    res.status(500).json({ error: "Internal server error." });
+  });
+
+  return app;
 };

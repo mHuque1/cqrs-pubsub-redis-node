@@ -4,7 +4,6 @@ import { getAllDatos } from "../controllers/data.controller";
 
 const router = Router();
 
-// GET /datos → getAllDatos
-router.get("/", getAllDatos);
+router.get("/datos", getAllDatos);
 
 export default router;
