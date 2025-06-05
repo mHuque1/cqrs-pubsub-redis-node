@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "49218797-b571-4306-8d02-8d3deb1c898a",
+		"_postman_id": "15451465-d070-472e-af9e-040f1b9233cb",
 		"name": "CQRS-PubSub",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "45628304",
-		"_collection_link": "https://mathiashuque.postman.co/workspace/Mathias-Huque's-Workspace~611d6dbe-7b6d-4a8a-8cf7-12c34d617434/collection/45628304-49218797-b571-4306-8d02-8d3deb1c898a?action=share&source=collection_link&creator=45628304"
+		"_exporter_id": "38174062",
+		"_collection_link": "https://obligatorio-diseno-2.postman.co/workspace/Obligatorio-Diseno-2-Workspace~15d4639c-1d9d-412d-9728-6e6cb1762ce5/collection/38174062-15451465-d070-472e-af9e-040f1b9233cb?action=share&source=collection_link&creator=38174062"
 	},
 	"item": [
 		{
@@ -200,6 +200,29 @@
 								"api",
 								"tareas",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Datos",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3001/api/datos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"datos"
 							]
 						}
 					},

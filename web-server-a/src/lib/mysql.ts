@@ -17,6 +17,7 @@ export async function connectMySQL(): Promise<void> {
       // 🔧 Run Prisma migration
       console.log("📦 Running Prisma migrations...");
       execSync("npx prisma migrate deploy", { stdio: "inherit" });
+      execSync("npx ts-node prisma/seed.ts", { stdio: "inherit" });
       console.log("✅ Prisma migrations completed successfully.");
       return;
     } catch (err: any) {
