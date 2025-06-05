@@ -1,0 +1,28 @@
+// web-server-a/src/server.ts
+import express, { Application, Request, Response, NextFunction } from "express";
+import cors from "cors";
+import routes from "./routes/datos.routes"; // this points to src/routes/index.ts
+
+export function createApp(): Application {
+  const app = express();
+
+  // Middleware
+  app.use(cors());
+  app.use(express.json());
+
+  // Mount all API routes under /api
+  app.use("/api", routes);
+
+  // Health check
+  app.get("/", (_req: Request, res: Response) => {
+    res.send("API is running.");
+  });
+
+  // Error handler
+  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    console.error("Unhandled error:", err);
+    res.status(500).json({ error: "Internal server error." });
+  });
+
+  return app;
+}
