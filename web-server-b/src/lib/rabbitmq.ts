@@ -3,7 +3,7 @@ import amqplib from "amqplib";
 export let channel: amqplib.Channel;
 
 const AMQP_URL = process.env.AMQP_URL || "amqp://queue:5672";
-const QUEUE_NAME = "datos_queue";
+const QUEUE_NAME = "movements";
 
 export const connectRabbit = async () => {
   let attempts = 0;

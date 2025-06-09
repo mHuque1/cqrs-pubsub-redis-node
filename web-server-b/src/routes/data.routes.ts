@@ -1,9 +1,14 @@
-// src/routes/data.routes.ts
-import { Router } from "express";
-import { getAllDatos } from "../controllers/data.controller";
+  // src/routes/data.routes.ts
+  import { Router } from "express";
+  import {
+    getAllDatos,
+    getMovementsBetweenDates,
+    getMovementsGroupedByMonth,
+  } from "../controllers/data.controller";
 
-const router = Router();
+  const router = Router();
 
-router.get("/datos", getAllDatos);
+  router.get("/movements-between-dates", getMovementsBetweenDates);
+  router.get("/movements-grouped-by-month", getMovementsGroupedByMonth);
 
-export default router;
+  export default router;

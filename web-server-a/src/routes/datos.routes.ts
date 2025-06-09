@@ -1,9 +1,9 @@
 import express from "express";
-import { crearDato, obtenerDatos } from "../controllers/datos.controller";
+import { crearDato, obtenerMovimiento } from "../controllers/datos.controller";
 
 const router = express.Router();
 
-router.post("/", crearDato);
-router.get("/", obtenerDatos);
+router.post("/movements", crearDato);
+router.get("/movements/:authorizationNumber", obtenerMovimiento);
 
 export default router;

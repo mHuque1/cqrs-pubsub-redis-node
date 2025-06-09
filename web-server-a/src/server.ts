@@ -2,8 +2,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import routes from "./routes/datos.routes";
 import cors from "cors";
-import authRoutes from "./routes/auth.routes";
-import tareaRoutes from "./routes/tarea.routes";
 
 export function createApp(): Application {
   const app = express();
@@ -13,8 +11,7 @@ export function createApp(): Application {
   app.use(express.json());
 
   // Mount all API routes under /api
-  app.use("/api/auth", authRoutes);
-  app.use("/api/tareas", tareaRoutes);
+
   app.use("/api", routes);
 
   // Health check

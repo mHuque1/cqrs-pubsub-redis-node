@@ -7,42 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Equipo {
-  id       Int      @id @default(autoincrement())
-  nombre   String
-  usuarios User[]
-  proyectos Proyecto[]
-}
-
 model Datos {
-  id   Int    @id @default(autoincrement())
-  dato String
+  id                  Int      @id @default(autoincrement())
+  authorizationNumber String
+  movementDate        DateTime
+  accountFrom         String
+  accountTo           String
+  destinationBank     String
+  sourceBank          String
+  currency            String
+  amount              Float
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  equipoId  Int
-  equipo    Equipo   @relation(fields: [equipoId], references: [id])
-}
-
-model Proyecto {
-  id        Int      @id @default(autoincrement())
-  nombre    String
-  descripcion String
-  equipoId  Int
-  equipo    Equipo   @relation(fields: [equipoId], references: [id])
-  tareas    Tarea[]
-}
-
-model Tarea {
-  id              Int      @id @default(autoincrement())
-  titulo          String
-  descripcion     String
-  estado          String   // pendiente, en_progreso, completada
-  proyectoId      Int
-  proyecto        Proyecto @relation(fields: [proyectoId], references: [id])
-  fechaCreacion   DateTime @default(now())
-  fechaActualizacion DateTime @updatedAt
-}

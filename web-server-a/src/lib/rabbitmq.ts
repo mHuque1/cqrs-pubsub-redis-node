@@ -12,7 +12,7 @@ export const connectRabbit = async () => {
     try {
       const connection = await amqplib.connect(AMQP_URL);
       channel = await connection.createChannel();
-      await channel.assertQueue("datos_queue");
+      await channel.assertQueue("movements");
       console.log("✅ Connected to RabbitMQ");
       return channel;
     } catch (err) {
@@ -29,5 +29,5 @@ export const publishDato = async (dato: any) => {
   if (!channel) {
     throw new Error("RabbitMQ channel is not initialized.");
   }
-  channel.sendToQueue("datos_queue", Buffer.from(JSON.stringify(dato)));
+  channel.sendToQueue("movements", Buffer.from(JSON.stringify(dato)));
 };

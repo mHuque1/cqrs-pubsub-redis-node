@@ -5,7 +5,7 @@ import Dato from "../models/dato.model";
 export const startConsumer = async () => {
   await connectRabbit();
 
-  channel.consume("datos_queue", async (msg) => {
+  channel.consume("movements", async (msg) => {
     if (!msg) return;
     try {
       const data = JSON.parse(msg.content.toString());
@@ -17,5 +17,5 @@ export const startConsumer = async () => {
     }
   });
 
-  console.log("✅ RabbitMQ consumer listening on ‘datos_queue’");
+  console.log("✅ RabbitMQ consumer listening on ‘movements’");
 };

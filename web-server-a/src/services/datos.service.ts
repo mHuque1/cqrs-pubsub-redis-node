@@ -7,35 +7,50 @@ const CACHE_KEY = "datos:all";
 const CACHE_TTL_SECONDS = 60;
 
 export class DatosService {
-  async crear(dato: string) {
-    const nuevo = await prisma.datos.create({ data: { dato } });
+  async crear(data: {
+    authorizationNumber: string;
+    movementDate: Date;
+    accountFrom: string;
+    accountTo: string;
+    destinationBank: string;
+    sourceBank: string;
+    currency: string;
+    amount: number;
+  }) {
+    const nuevo = await prisma.datos.create({ data });
 
-    await this.invalidateCache();
-
-    // Publish to RabbitMQ
+    //Publicar a RabbitMQ
     await publishDato(nuevo);
 
     return nuevo;
   }
 
-  async obtenerTodos() {
-    const cached = await redis.get(CACHE_KEY);
+  async obtenerPorAuthorizationNumber(authorizationNumber: string) {
+    const cacheKey = `${CACHE_KEY}:${authorizationNumber}`;
+    const cached = await redis.get(cacheKey);
+
     if (cached) {
-      return JSON.parse(cached);
+      const dato = JSON.parse(cached);
+      console.log("Dato obtenido del caché:", dato);
+      return { ...dato, status: "obtenido del caché" };
     }
 
-    const datos = await prisma.datos.findMany();
-    await this.cacheDatos(datos);
-    return datos;
-  }
+    const dato = await prisma.datos.findFirst({
+      where: { authorizationNumber },
+    });
 
-  private async invalidateCache() {
-    await redis.del(CACHE_KEY);
-  }
+    if (!dato) {
+      return null; // lo manejamos en el controller
+    }
 
-  private async cacheDatos(datos: unknown) {
-    await redis.set(CACHE_KEY, JSON.stringify(datos), {
+    console.log("Dato obtenido de la base de datos:", dato);
+
+    // Cachear el dato individual
+    await redis.set(cacheKey, JSON.stringify(dato), {
       EX: CACHE_TTL_SECONDS,
     });
+
+    return { ...dato, status: "obtenido de base de datos" };
   }
+
 }

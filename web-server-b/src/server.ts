@@ -2,7 +2,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import routes from "./routes/data.routes";
 import cors from "cors";
-import tareaRoutes from "./routes/tarea.routes";
 
 export function createApp() : Application {
   const app = express();
@@ -11,8 +10,8 @@ export function createApp() : Application {
   app.use(cors());
   app.use(express.json());
 
-  app.use("/api/tareas", tareaRoutes);
-  // Mount all API routes under /api
+
+  
   app.use("/api", routes);
 
 
